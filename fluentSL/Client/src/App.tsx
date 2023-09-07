@@ -9,7 +9,7 @@ const App = (): JSX.Element => {
   return (
     <div className="bgcolor">
       <Layout style={{minHeight: '100vh'}}>
-        <AppSider />
+          <AppSider/>
         <Layout
           style={{
             backgroundImage: `url("https://mcdn.wallpapersafari.com/medium/5/83/QnuR8r.jpg")`,
