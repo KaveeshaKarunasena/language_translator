@@ -1,13 +1,16 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
 .upper-layer {
-  display: flex;
-  position: relative;
-  height: 80vh;
-  width: 80vw;
+  height: 93vh;
+  width: 97.5%;
   align-items: center;
   justify-content: space-between;
-  padding: 50px;
 
-  background: rgba(113, 148, 153, 0.3);
+  background: rgba(0, 0, 0, 0.3);
 
   backdrop-filter: blur(7.5px);
   -webkit-backdrop-filter: blur(7.5px);
@@ -18,4 +21,3 @@
   border: 1px solid rgba(255, 255, 255, 0.18);
   z-index: 4;
 }
-

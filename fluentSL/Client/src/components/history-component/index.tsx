@@ -1,9 +1,7 @@
-import * as React from 'react'
 import {styled} from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import Grid from '@mui/material/Grid'
-import Avatar from '@mui/material/Avatar'
 import Typography from '@mui/material/Typography'
 import DeleteIcon from '@mui/icons-material/Delete'
 import {IconButton} from '@mui/material'
@@ -25,7 +23,7 @@ const message = `Truncation should be conditionally applicable on this long line
 
 const Index = () => {
   return (
-    <Box sx={{height:"97vh"}}>
+    <Box sx={{height: '88vh'}}>
       <Box>
         <h2 className="title">HISTORY</h2>
       </Box>
@@ -107,7 +105,6 @@ const Index = () => {
             </Grid>
           </Grid>
         </StyledPaper>
-
       </Box>
     </Box>
   )

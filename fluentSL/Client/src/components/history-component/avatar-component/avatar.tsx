@@ -13,7 +13,7 @@ const StyledPaper = styled(Paper)(({theme}) => ({
   backgroundColor: 'transparent',
   ...theme.typography.body2,
   padding: theme.spacing(2),
-  maxWidth: 400,
+  maxWidth: 400
 }))
 
 export default function AvatarComponent() {
@@ -46,7 +46,9 @@ export default function AvatarComponent() {
             alignItems="center"
             justifyContent="center"
           >
-            <Typography noWrap style={{color:'white'}}>kaveesha karunasena</Typography>
+            <Typography noWrap style={{color: 'white'}}>
+              kaveesha karunasena
+            </Typography>
           </Grid>
         </Grid>
       </StyledPaper>

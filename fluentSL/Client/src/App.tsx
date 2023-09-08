@@ -4,20 +4,20 @@ import AppContent from './layout/AppContent'
 import AppFooter from './layout/AppFooter'
 import AppSider from './layout/AppSider'
 import './App.css'
+import image from './image/5.png'
 
 const App = (): JSX.Element => {
   return (
-    <div className="bgcolor">
-      <Layout style={{minHeight: '100vh'}}>
-          <AppSider/>
+    <div>
+      <Layout>
+        <AppSider />
         <Layout
           style={{
-            backgroundImage: `url("https://mcdn.wallpapersafari.com/medium/5/83/QnuR8r.jpg")`,
+            backgroundImage: `url(${image})`,
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover'
           }}
         >
-          <AppHeader />
           <AppContent />
           <AppFooter />
         </Layout>
