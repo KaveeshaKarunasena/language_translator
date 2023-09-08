@@ -1,0 +1,13 @@
+.title{
+    margin-left: 55px;
+    color: white;
+}
+
+.card {
+    margin-top: 10px;
+    margin-left:5px;
+    margin-top: 10px;
+    width: 200px;
+    height: 40px;
+    background: transparent;
+}
