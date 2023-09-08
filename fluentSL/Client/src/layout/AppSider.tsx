@@ -10,10 +10,10 @@ const AppSider = (): JSX.Element => {
     <Sider
       style={{
         padding: 0,
-        // display:'flex',
-        // flexDirection: 'column',
-        // justifyContent: 'flex-end' ,
-        // maxHeight:"100%"
+        display:'flex',
+        flexDirection: 'column',
+        maxHeight:"100%",
+        width:400
       }}
     >
       <Index/>
