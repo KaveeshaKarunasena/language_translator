@@ -47,7 +47,7 @@ export default function AvatarComponent() {
             justifyContent="center"
           >
             <Typography noWrap style={{color: 'white'}}>
-              kaveesha karunasena
+              kaveeshakarunasena@gmail.com
             </Typography>
           </Grid>
         </Grid>

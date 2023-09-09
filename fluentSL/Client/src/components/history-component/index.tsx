@@ -24,7 +24,7 @@ const message = `Truncation should be conditionally applicable on this long line
 const Index = () => {
   return (
     <Box sx={{height: '88vh'}}>
-      <Box>
+      <Box sx={{px: 6}}>
         <h2 className="title">HISTORY</h2>
       </Box>
       <Box sx={{flexGrow: 1, overflow: 'hidden', px: 2}}>

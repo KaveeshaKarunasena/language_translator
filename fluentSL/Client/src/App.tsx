@@ -13,7 +13,7 @@ const App = (): JSX.Element => {
         <AppSider />
         <Layout
           style={{
-            backgroundImage: `url(${image})`,
+            backgroundImage: `url('${image}')`,
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover'
           }}
