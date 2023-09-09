@@ -39,7 +39,7 @@ const AppContent = (): JSX.Element => {
               checkedChildren="Spoken"
               unCheckedChildren="Written"
               defaultChecked
-              style={{marginLeft: '1735%'}}
+              //style={{display: 'flex', justify-content: 'end'}}
             />
           </Space>
         </div>

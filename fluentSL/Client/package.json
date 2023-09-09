@@ -10,15 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@azure/msal-browser": "^3.1.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.8",
     "@mui/material": "^5.14.8",
     "@mui/styles": "^5.14.7",
-    "antd": "^5.8.6",
+    "antd": "^5.9.0",
     "pdf-scraper": "^1.1.4",
     "prettier": "^3.0.3",
     "react": "^18.2.0",
+    "react-adal": "^0.5.2",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0",
     "react-speech-recognition": "^3.10.0",
@@ -26,6 +28,7 @@
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
+    "@types/react-adal": "^0.5.2",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
