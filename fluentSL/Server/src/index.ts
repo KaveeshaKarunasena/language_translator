@@ -1,26 +1,40 @@
-import express,{Request,Response} from "express";
+import express,{ Router, Request, Response } from 'express';
+import bodyParser from 'body-parser';
+
 import mongoose from "mongoose";
-import Deck from "./model/User";
-import {config} from "dotenv";
-config();
-import { createUserHistoryController } from "./Controller/createUser";
-import { deleteUserHistoryController } from "./Controller/deleteUserHistory";
-import { getUserHistoryController } from "./Controller/getUserHistroy";
+const historyRoute = require('./routes/historyroute');
+
 
 const app = express();
-const PORT = 5001;
+const PORT = 3000;
 
-app.use(express.json);
+app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  }),
+);
 
-app.get("/userhistory", getUserHistoryController);
-app.post("/createuserhistory", createUserHistoryController);
-app.delete("/history/:title", deleteUserHistoryController);
+app.get('/', (req: Request, res: Response) => {
+  res.send('Hello, TypeScript Express!');
+});
+
+app.use("/userhistory", historyRoute);
+// app.use("/getHistory", getUserHistory);
+// app.use("/history/:_id", deleteUserHistory);
 
 mongoose.connect(
-    "mongodb+srv://it21265242:pUibA7UnWug5rsCP@clusteruserdb.5phqutw.mongodb.net/?retryWrites=true&w=majority"
+    "mongodb+srv://it21258794:it21258794@cluster0.gbxgola.mongodb.net/?retryWrites=true&w=majority"
     ).then(()=> {
-        console.log(`listening on port ${PORT}`);
-        app.listen(PORT);
+        console.log('MongoDB connected');
+        app.on('error', (e) => {
+          console.log(e)
+        });
+        app.listen(PORT, () => {
+          console.log(`TypeScript with Express
+         http://localhost:${PORT}/`);
+        });
       });
+
 
 
