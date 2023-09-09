@@ -2,12 +2,42 @@ import {Button, Layout, Space, Switch, Tooltip} from 'antd'
 import '../App.css'
 import TextArea from 'antd/es/input/TextArea'
 import {PaperClipOutlined, AudioOutlined} from '@ant-design/icons'
+import Convert from '../components/convertor'
+import axios from 'axios'
+
 
 const {Content} = Layout
 
-const AppContent = (): JSX.Element => {
+
+const AppContent = async (): Promise<JSX.Element> => {
+ 
+
+  const options = {
+    method: 'POST',
+    url: 'https://rapid-translate-multi-traduction.p.rapidapi.com/t',
+    headers: {
+      'content-type': 'application/json',
+      'X-RapidAPI-Key': '43b21a7caamsh3408ac81c5316dap17b63ejsn6a92ff519187',
+      'X-RapidAPI-Host': 'rapid-translate-multi-traduction.p.rapidapi.com'
+    },
+    data: {
+      from: 'en',
+      to: 'si',
+      q: 'Hello ! i want to go home'
+    }
+  };
+  
+  try {
+    const response = await axios.request(options);
+    console.log(response.data);
+  } catch (error) {
+    console.error(error);
+  }
   return (
     <>
+  {/* <Convert
+  language = 'uz'
+  text='my name is amal'/> */}
       <Content
         className="upper-layer"
         style={{
