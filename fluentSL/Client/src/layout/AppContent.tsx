@@ -18,8 +18,9 @@ const AppContent = (): any => {
       url: 'https://rapid-translate-multi-traduction.p.rapidapi.com/t',
       headers: {
         'content-type': 'application/json',
-        'X-RapidAPI-Key': '43b21a7caamsh3408ac81c5316dap17b63ejsn6a92ff519187',
-        'X-RapidAPI-Host': 'rapid-translate-multi-traduction.p.rapidapi.com'
+    'X-RapidAPI-Key': '844dee9b82msh71b565e662a4fadp10eb89jsn2efb46c0e5a5',
+    'X-RapidAPI-Host': 'rapid-translate-multi-traduction.p.rapidapi.com'
+
       },
       data: {
         from: 'en',
