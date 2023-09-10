@@ -8,6 +8,8 @@ import './App.css'
 const DO_NOT_LOGIN = false
 
 const registerServiceWorker = () => {
+  const token = authContext.getCachedToken(authContext.config.clientId)
+  console.log('Authentication Token:', token)
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker
       .register('/serviceWorker.js') // Specify the correct path to your service worker file

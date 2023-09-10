@@ -5,13 +5,9 @@ import {PaperClipOutlined, AudioOutlined} from '@ant-design/icons'
 import Convert from '../components/convertor'
 import axios from 'axios'
 
-
 const {Content} = Layout
 
-
 const AppContent = async (): Promise<JSX.Element> => {
- 
-
   const options = {
     method: 'POST',
     url: 'https://rapid-translate-multi-traduction.p.rapidapi.com/t',
@@ -25,17 +21,17 @@ const AppContent = async (): Promise<JSX.Element> => {
       to: 'si',
       q: 'Hello ! i want to go home'
     }
-  };
-  
+  }
+
   try {
-    const response = await axios.request(options);
-    console.log(response.data);
+    const response = await axios.request(options)
+    console.log(response.data)
   } catch (error) {
-    console.error(error);
+    console.error(error)
   }
   return (
     <>
-  {/* <Convert
+      {/* <Convert
   language = 'uz'
   text='my name is amal'/> */}
       <Content
