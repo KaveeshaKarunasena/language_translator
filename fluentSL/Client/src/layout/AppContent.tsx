@@ -94,7 +94,8 @@ const AppContent = (): any => {
           <br />
 
           <TextArea showCount style={{height: 120}} placeholder={value} />
-
+          <br />
+          <br />
           <Button onClick={handleTranslate}>Translate</Button>
 
           <br />
