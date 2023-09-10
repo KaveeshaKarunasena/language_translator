@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography'
 import DeleteIcon from '@mui/icons-material/Delete'
 import {IconButton} from '@mui/material'
 import {useState,useEffect} from 'react'
+// import ConfirmDialog from './ConfirmDialod';
+import axios from 'axios'
 import './index.css'
 
 const StyledPaper = styled(Paper)(({theme}) => ({
@@ -19,12 +21,10 @@ const StyledPaper = styled(Paper)(({theme}) => ({
   }
 }))
 
-const message = `Truncation should be conditionally applicable on this long line of text
- as this is a much longer line than what the container can support. `
-
 const Index = () => {
 
   const [history,setHistory] = useState([])
+  const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -44,6 +44,22 @@ const Index = () => {
     fetchDetails();
   }, []);
 
+  const deleteDetails = async (id:any) => {
+  //   setConfirmDialog({
+  //     ...confirmDialog,
+  //     isOpen: false
+  // })
+    await axios
+      .delete(`http://localhost:3000/userhistory/deleteHistory/${id}`)
+      .then(() => {
+        const historyCopy = [...history];
+        const filteredHistory = historyCopy.filter((item:any) => item._id !== id);
+        setHistory(filteredHistory);
+       
+      })
+     
+  };
+
   return (
     <Box sx={{height: '88vh'}}>
       <Box sx={{px: 6}}>
@@ -62,7 +78,7 @@ const Index = () => {
           <Grid container wrap="nowrap" spacing={2}>
             <Grid item>
               <IconButton aria-label="delete" color="error">
-                <DeleteIcon />
+                <DeleteIcon onClick={() => {deleteDetails(data._id) }}/>
               </IconButton>
             </Grid>
             <Grid
