@@ -16,6 +16,10 @@ const StyledPaper = styled(Paper)(({theme}) => ({
   maxWidth: 400
 }))
 
+interface AppProps {
+  email: any
+}
+
 export default function AvatarComponent() {
   return (
     // <Stack direction="row" spacing={1} style={{marginLeft:'9px'}}>
@@ -47,7 +51,7 @@ export default function AvatarComponent() {
             justifyContent="center"
           >
             <Typography noWrap style={{color: 'white'}}>
-              kaveeshakarunasena@gmail.com
+              shamrishiraz01@gmail.com
             </Typography>
           </Grid>
         </Grid>

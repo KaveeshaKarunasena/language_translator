@@ -6,6 +6,10 @@ import AppSider from './layout/AppSider'
 import './App.css'
 import image from './image/5.png'
 
+interface AppProps {
+  email: string
+}
+
 const App = (): JSX.Element => {
   return (
     <div>

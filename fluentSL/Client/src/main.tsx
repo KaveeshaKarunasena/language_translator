@@ -7,12 +7,32 @@ import './App.css'
 
 const DO_NOT_LOGIN = false
 
+interface TokenClaims {
+  sub: string
+  email: string
+}
+
 const registerServiceWorker = () => {
-  const token = authContext.getCachedToken(authContext.config.clientId)
-  console.log('Authentication Token:', token)
+  // Obtain the authentication token (make it nullable)
+  const token: string | null | undefined = authContext.getCachedToken(
+    authContext.config.clientId
+  )
+
+  if (token !== null && token !== undefined) {
+    const base64Url = token.split('.')[1]
+    const base64 = base64Url.replace('-', '+').replace('_', '/')
+    const decodedToken: TokenClaims = JSON.parse(atob(base64))
+
+    const userEmail = decodedToken.email
+
+    console.log('User Email:', userEmail)
+  } else {
+    console.warn('Token is null or undefined')
+  }
+
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker
-      .register('/serviceWorker.js') // Specify the correct path to your service worker file
+      .register('/serviceWorker.js')
       .then((registration) => {
         console.log('Service Worker registered with scope:', registration.scope)
       })
@@ -31,7 +51,7 @@ runWithAdal(
       </React.StrictMode>,
       document.getElementById('root')
     )
-    registerServiceWorker() // Call the function to register the service worker
+    registerServiceWorker()
   },
   DO_NOT_LOGIN
 )
