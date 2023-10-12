@@ -1,12 +1,14 @@
-import express,{ Router, Request, Response } from 'express';
+import express, { Router, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import mongoose from "mongoose";
-const historyRoute = require('./routes/historyroute');
+import mongoose from 'mongoose';
+import { historyRoute } from './routes/history.route';
+import { accountRoute } from './routes/account.route';
 
+require('dotenv').config();
 
 const app = express();
-const PORT = 3000;
+const port = process.env.PORT;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(
@@ -19,22 +21,16 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Hello, TypeScript Express!');
 });
 
-app.use("/userhistory", historyRoute);
-// app.use("/getHistory", getUserHistory);
-// app.use("/history/:_id", deleteUserHistory);
+app.use('/userhistory', historyRoute);
+app.use('/account', accountRoute);
 
-mongoose.connect(
-    "mongodb+srv://it21258794:it21258794@cluster0.gbxgola.mongodb.net/?retryWrites=true&w=majority"
-    ).then(()=> {
-        console.log('MongoDB connected');
-        app.on('error', (e) => {
-          console.log(e)
-        });
-        app.listen(PORT, () => {
-          console.log(`TypeScript with Express
-         http://localhost:${PORT}/`);
-        });
-      });
-
-
-
+mongoose.connect(process.env.MONGO_URL).then(() => {
+  console.log('MongoDB connected');
+  app.on('error', (e) => {
+    console.log(e);
+  });
+  app.listen(port, () => {
+    console.log(`TypeScript with Express
+         http://localhost:${port}/`);
+  });
+});
