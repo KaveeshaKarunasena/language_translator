@@ -80,15 +80,42 @@ export default function SignUp() {
       fname: '',
       lname: '',
       email: '',
-      mobile: '',
       password: '',
-      role: ''
     },
     validationSchema: validationSchema,
     validateOnChange: true,
     onSubmit: async (values) => {
       console.log('here')
 
+      axios({
+        method: 'POST',
+        url: 'http://localhost:3000/account/sendOTP',
+        data: { email: values.email },
+      });
+      Swal.fire({
+        title: 'Enter OTP',
+        input: 'text',
+        inputLabel: '',
+        inputPlaceholder: 'Enter otp',
+        showCancelButton: true,
+        confirmButtonText: 'Submit',
+        preConfirm: otp => {
+          return axios
+            .post('http://localhost:3000/account/verifyOTP', { values, otp })
+            .then(response => {
+              return response.data;
+            })
+            .catch(error => {
+              Swal.fire({
+                title: 'Mismatched OTP',
+                icon: 'question',
+                iconHtml: '?',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Back'
+              })
+            });
+        },
+      })
       await axios({
         method: 'POST',
         url: 'http://localhost:3000/account/createAccount',
@@ -96,9 +123,7 @@ export default function SignUp() {
           fname: values.fname,
           lname: values.lname,
           email: values.email,
-          mobile: values.mobile,
           password: values.password,
-          role: values.role
         }
       })
         .then(() => {
@@ -257,7 +282,7 @@ export default function SignUp() {
                 backgroundColor: '#006ee6'
               }}
             >
-              SignUp
+              Get OTP
             </Button>
           </Box>
 
