@@ -14,6 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const account_model_1 = __importDefault(require("../model/account/account.model"));
 const auth_service_1 = __importDefault(require("../utils/auth.service"));
+const nodemailer_1 = __importDefault(require("nodemailer"));
+const OTP_1 = __importDefault(require("../model/OTP"));
 const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const dto = req.body;
@@ -44,8 +46,81 @@ const getCurrentUser = (req, res) => __awaiter(void 0, void 0, void 0, function*
         throw err;
     }
 });
+const sendOTP = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('here');
+    const email = req.body.email;
+    console.log(email);
+    let generatedOTP = Math.floor(Math.random() * 10000);
+    let transporter = nodemailer_1.default.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.USER_EMAIL,
+            pass: process.env.EMAIL_PASS,
+        },
+    });
+    const otp = generatedOTP;
+    let mailOptions = {
+        from: process.env.USER_EMAIL,
+        to: email,
+        subject: 'OTP',
+        text: 'here is your otp',
+        html: `<b>${otp}</b>`,
+    };
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return console.log(error);
+        }
+        console.log('Message sent: %s', info.messageId);
+        const createdAt = Date.now();
+        const expiredAt = Date.now() + 300000;
+        const newOTP = new OTP_1.default({
+            email,
+            otp,
+            createdAt,
+            expiredAt,
+        });
+        newOTP
+            .save()
+            .then(() => {
+            res.json('OTP Added');
+        })
+            .catch((err) => {
+            console.log(err);
+        });
+    });
+});
+const verifyOTP = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const email = req.body.values.email;
+    const receivedOTP = req.body.otp;
+    OTP_1.default
+        .findOne({ email: email, otp: receivedOTP })
+        .then((otp) => {
+        if (otp) {
+            if (otp.expiredAt > Date.now()) {
+                OTP_1.default.deleteMany({ email: email }).catch((error) => {
+                    console.log(error);
+                });
+                res.json('verified');
+            }
+            else {
+                OTP_1.default.deleteMany({ email: email }).catch((error) => {
+                    console.log(error);
+                });
+                res.json('expired');
+            }
+        }
+        else {
+            res.json('invalid');
+        }
+    })
+        .catch((err) => {
+        console.log(err);
+    });
+});
 exports.default = {
     signUp,
     login,
     getCurrentUser,
+    sendOTP,
+    verifyOTP,
 };
