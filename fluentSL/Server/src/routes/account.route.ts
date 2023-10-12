@@ -9,10 +9,18 @@ export const accountRoute = Router();
 accountRoute.post(
   '/createAccount',
   validate([
-    body('email').isEmail().normalizeEmail().withMessage("Enter an Valid Email "),
-    body('password').isString().isLength({ min: 8 }).withMessage("Password needs have atleast 8 characters "),
+    body('email')
+      .isEmail()
+      .normalizeEmail()
+      .withMessage('Enter an Valid Email '),
+    body('password')
+      .isString()
+      .isLength({ min: 8 })
+      .withMessage('Password needs have atleast 8 characters '),
   ]),
   accountController.signUp,
 );
 accountRoute.post('/login', accountController.login);
 accountRoute.get('/currentUser', AuthGuard, accountController.getCurrentUser);
+accountRoute.post('/sendOTP', accountController.sendOTP);
+accountRoute.post('/verifyOTP', accountController.verifyOTP);
