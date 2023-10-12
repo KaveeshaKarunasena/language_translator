@@ -4,6 +4,7 @@ import AuthGuard from '../utils/authGuard';
 import validate from '../utils/validator';
 import { body } from 'express-validator';
 
+
 export const accountRoute = Router();
 
 accountRoute.post(
