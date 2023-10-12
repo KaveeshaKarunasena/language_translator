@@ -5,27 +5,27 @@ import AppFooter from './layout/AppFooter'
 import AppSider from './layout/AppSider'
 import './App.css'
 import image from './image/5.png'
+import { Route, Routes } from 'react-router-dom';
+import SignIn from './userComponent/SignIn'
+import SignUp from './userComponent/SignUp'
+import { AuthGuard } from './auth/AuthGuard'
+import TranslationPage from './pages/translationPage'
 
-interface AppProps {
-  email: string
-}
+
 
 const App = (): JSX.Element => {
   return (
     <div>
-      <Layout>
-        <AppSider />
-        <Layout
-          style={{
-            backgroundImage: `url('${image}')`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover'
-          }}
-        >
-          <AppContent />
-          <AppFooter />
-        </Layout>
-      </Layout>
+      <AuthGuard>
+     <Routes>
+        <Route path="/" element={<SignUp />} />
+        <Route path="/login" element={<SignIn />} />
+     </Routes>
+     </AuthGuard>
+     <Routes>
+        <Route path="/user/translate" element={<TranslationPage />} />
+     </Routes>
+
     </div>
   )
 }

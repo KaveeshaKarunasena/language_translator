@@ -20,7 +20,7 @@ interface AppProps {
   email: any
 }
 
-export default function AvatarComponent() {
+export default function AvatarComponent({user}) {
   return (
     // <Stack direction="row" spacing={1} style={{marginLeft:'9px'}}>
     //   <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" sx={{ width: 25, height: 25 }}/>
@@ -51,7 +51,7 @@ export default function AvatarComponent() {
             justifyContent="center"
           >
             <Typography noWrap style={{color: 'white'}}>
-              shamrishiraz01@gmail.com
+              {user.email}
             </Typography>
           </Grid>
         </Grid>

@@ -4,16 +4,14 @@ import Avatar from '../components/history-component/avatar-component/avatar'
 
 const {Sider} = Layout
 
-interface AppProps {
-  email: string
-}
 
-const AppSider = (): JSX.Element => {
+const AppSider = ({user}): JSX.Element => {
+  console.log(user)
   return (
     <Sider width={300}>
       <Index />
       <div>
-        <Avatar />
+        <Avatar user = {user} />
       </div>
     </Sider>
   )
