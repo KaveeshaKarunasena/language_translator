@@ -1,29 +1,29 @@
-import * as React from 'react'
-import Avatar from '@mui/material/Avatar'
-import Button from '@mui/material/Button'
-import CssBaseline from '@mui/material/CssBaseline'
-import TextField from '@mui/material/TextField'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import Checkbox from '@mui/material/Checkbox'
-import Grid from '@mui/material/Grid'
-import Box from '@mui/material/Box'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import Typography from '@mui/material/Typography'
-import Container from '@mui/material/Container'
-import {createTheme, ThemeProvider} from '@mui/material/styles'
-import * as Yup from 'yup'
-import axios from 'axios'
-import Swal from 'sweetalert2'
-import {useFormik} from 'formik'
-import {makeStyles} from 'tss-react/mui'
-import {useNavigate, NavLink} from 'react-router-dom'
-import IconButton from '@mui/material/IconButton'
-import InputAdornment from '@mui/material/InputAdornment'
-import Visibility from '@mui/icons-material/Visibility'
-import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import * as Yup from 'yup';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import { useFormik } from 'formik';
+import { makeStyles } from 'tss-react/mui';
+import { useNavigate, NavLink } from 'react-router-dom';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-const theme = createTheme()
-const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/
+const theme = createTheme();
+const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
 const validationSchema = Yup.object({
   fname: Yup.string().required('Required'),
@@ -31,49 +31,49 @@ const validationSchema = Yup.object({
   password: Yup.string()
     .matches(passwordRules, {
       message:
-        'Please create a stronger password (min 8 characters, 1 upper case letter, 1 lower case letter, 1 numeric digit)'
+        'Please create a stronger password (min 8 characters, 1 upper case letter, 1 lower case letter, 1 numeric digit)',
     })
     .required('Required'),
-  email: Yup.string().email('Please enter a valid email').required('Required')
-})
+  email: Yup.string().email('Please enter a valid email').required('Required'),
+});
 
 const useStyles = makeStyles()((theme) => ({
   root: {
     [theme.breakpoints.up('md')]: {
-      width: '30%'
+      width: '30%',
     },
     [theme.breakpoints.down('md')]: {
-      width: '60%'
+      width: '60%',
     },
     [theme.breakpoints.down('sm')]: {
-      width: '95%'
+      width: '95%',
     },
     margin: '0 auto',
     height: '100vh',
     display: 'flex',
     flexDirection: 'column',
     marginTop: '30px',
-    marginRight: '30%'
+    marginRight: '30%',
   },
   formControl: {
-    marginTop: '10px'
+    marginTop: '10px',
   },
   submitBtn: {
     marginTop: '75px',
-    marginLeft: '15%'
+    marginLeft: '15%',
   },
   signup: {
-    marginRight: '80%'
-  }
-}))
+    marginRight: '80%',
+  },
+}));
 
 // const imageUpload = (event)=>{
 //   console.log(event.target.files[0])
 // }
 
 export default function SignUp() {
-  const navigate = useNavigate()
-  const {classes} = useStyles()
+  const navigate = useNavigate();
+  const { classes } = useStyles();
 
   const formik = useFormik({
     initialValues: {
@@ -85,7 +85,7 @@ export default function SignUp() {
     validationSchema: validationSchema,
     validateOnChange: true,
     onSubmit: async (values) => {
-      console.log('here')
+      console.log('here');
 
       axios({
         method: 'POST',
@@ -99,23 +99,23 @@ export default function SignUp() {
         inputPlaceholder: 'Enter otp',
         showCancelButton: true,
         confirmButtonText: 'Submit',
-        preConfirm: otp => {
+        preConfirm: (otp) => {
           return axios
             .post('http://localhost:3000/account/verifyOTP', { values, otp })
-            .then(response => {
+            .then((response) => {
               return response.data;
             })
-            .catch(error => {
+            .catch((error) => {
               Swal.fire({
                 title: 'Mismatched OTP',
                 icon: 'question',
                 iconHtml: '?',
                 confirmButtonColor: '#3085d6',
-                confirmButtonText: 'Back'
-              })
+                confirmButtonText: 'Back',
+              });
             });
         },
-      })
+      });
       await axios({
         method: 'POST',
         url: 'http://localhost:3000/account/createAccount',
@@ -124,27 +124,27 @@ export default function SignUp() {
           lname: values.lname,
           email: values.email,
           password: values.password,
-        }
+        },
       })
         .then(() => {
-          console.log('Customer added')
-          navigate('/login')
+          console.log('Customer added');
+          navigate('/login');
         })
         .catch((err) => {
-          console.log(err)
-        })
-    }
-  })
+          console.log(err);
+        });
+    },
+  });
 
-  const [showPassword, setShowPassword] = React.useState(false)
+  const [showPassword, setShowPassword] = React.useState(false);
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show)
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
-    event.preventDefault()
-  }
+    event.preventDefault();
+  };
 
-  const {handleChange, handleSubmit} = formik
+  const { handleChange, handleSubmit } = formik;
 
   return (
     <ThemeProvider theme={theme}>
@@ -155,16 +155,21 @@ export default function SignUp() {
             marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center'
+            alignItems: 'center',
           }}
         >
-          <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 3}}>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -267,7 +272,7 @@ export default function SignUp() {
                           {showPassword ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
                       </InputAdornment>
-                    )
+                    ),
                   }}
                 />
               </Grid>
@@ -277,9 +282,9 @@ export default function SignUp() {
               fullWidth
               margintop="16px"
               variant="contained"
-              sx={{mt: 3, mb: 2}}
+              sx={{ mt: 3, mb: 2 }}
               style={{
-                backgroundColor: '#006ee6'
+                backgroundColor: '#006ee6',
               }}
             >
               Get OTP
@@ -294,5 +299,5 @@ export default function SignUp() {
         </Box>
       </Container>
     </ThemeProvider>
-  )
+  );
 }
