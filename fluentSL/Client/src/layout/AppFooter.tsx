@@ -9,7 +9,7 @@ function AppFooter() {
         background: 'transparent'
       }}
     >
-      <center style={{color: 'white'}}>
+      <center style={{color: 'black'}}>
         © 2023 CODEX - FluentSL | All Rights Reserved
       </center>
     </Footer>
