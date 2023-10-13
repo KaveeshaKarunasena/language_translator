@@ -17,15 +17,11 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AlertDialogSlide({confirmDialog, setConfirmDialog}) {
+export default function AlertDialogSlide({ confirmDialog, setConfirmDialog }) {
   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
   const handleClose = () => {
-    setConfirmDialog()
+    setConfirmDialog();
   };
 
   return (
@@ -40,12 +36,22 @@ export default function AlertDialogSlide({confirmDialog, setConfirmDialog}) {
         <DialogTitle> {confirmDialog.title}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-          {confirmDialog.subTitle}
+            {confirmDialog.subTitle}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" color="error" onClick={() => setConfirmDialog({ ...confirmDialog, isOpen: false })} >No</Button>
-          <Button variant="contained"onClick={confirmDialog.onConfirm}>Yes</Button>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={() =>
+              setConfirmDialog({ ...confirmDialog, isOpen: false })
+            }
+          >
+            No
+          </Button>
+          <Button variant="contained" onClick={confirmDialog.onConfirm}>
+            Yes
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

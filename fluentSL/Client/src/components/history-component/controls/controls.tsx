@@ -1,7 +1,7 @@
 // import Button from "./buttons";
 
 // const Controls = {
-//     Button, 
+//     Button,
 // }
 
 // export default Controls;

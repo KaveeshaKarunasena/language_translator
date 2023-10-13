@@ -15,11 +15,10 @@ export const AuthGuard = ({ children }) => {
     console.log('auths', data);
     // setToken(authPayload.token)
     if (!data || !data.token) {
-      return <>{children}</>
+      return <>{children}</>;
     }
     return <Navigate to="/user/translate" />;
   } catch (error) {
     console.log(error);
   }
 };
-
