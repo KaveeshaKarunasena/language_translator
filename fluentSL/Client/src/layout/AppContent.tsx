@@ -5,13 +5,26 @@ import { PaperClipOutlined, AudioOutlined } from '@ant-design/icons';
 import Convert from '../components/convertor';
 import axios from 'axios';
 import { useState } from 'react';
+import React from 'react';
+import { AuthContext } from '../auth/AuthProvider';
+import jwt_decode from 'jwt-decode';
+import logo from '../image/logo-white-removebg-preview.png';
 
 const { Content } = Layout;
 
 const AppContent = (): any => {
   const [text, setText] = useState('');
-
   const [value, setValue] = useState('');
+
+  let authPayload = React.useContext(AuthContext);
+  const { fromStorage } = authPayload;
+  const data = JSON.parse(fromStorage);
+
+  const token = data.token;
+  const headers = { Authorization: 'Bearer ' + token };
+
+  const decoded = jwt_decode(token);
+  const decodedId = decoded.id;
 
   async function handleTranslate(): Promise<void> {
     const options = {
@@ -27,30 +40,29 @@ const AppContent = (): any => {
 
       data: {
         from: 'en',
-
         to: 'si',
-
         q: [`${text}`],
       },
     };
 
     try {
       const response = await axios.request(options);
-
       setValue(response.data);
-
       console.log(response.data);
     } catch (error) {
       console.error(error);
     }
 
     axios
-
-      .post('http://localhost:3000/userhistory/create', {
-        title: 'title',
-
-        description: value,
-      })
+      .post(
+        'http://localhost:3000/userhistory/create',
+        {
+          user_id: decodedId,
+          title: text,
+          description: value,
+        },
+        { headers },
+      )
 
       .then((response) => {
         console.log(response);
@@ -59,12 +71,6 @@ const AppContent = (): any => {
 
   return (
     <>
-      {/* <Convert
-
-  language = 'uz'
-
-  text='my name is amal'/> */}
-
       <Content
         className="upper-layer"
         style={{
@@ -73,18 +79,17 @@ const AppContent = (): any => {
           borderRadius: '10px',
         }}
       >
-        <div style={{ marginTop: '15%' }}>
+        {' '}
+        <img src={logo} alt="Logo" width="120" height="120" />
+        <div style={{ marginTop: '7%' }}>
           <TextArea
             showCount
             style={{ height: 120 }}
             placeholder="Sinhala"
             onChange={(e) => setText(e.target.value)}
           />
-
           <br />
-
           <br />
-
           <TextArea
             showCount
             style={{ height: 120 }}
