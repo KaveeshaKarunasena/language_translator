@@ -1,15 +1,9 @@
 import {Button, Layout, Space, Switch, Tooltip} from 'antd'
-
 import '../App.css'
-
 import TextArea from 'antd/es/input/TextArea'
-
 import {PaperClipOutlined, AudioOutlined} from '@ant-design/icons'
-
 import Convert from '../components/convertor'
-
 import axios from 'axios'
-
 import {useState} from 'react'
 
 const {Content} = Layout
@@ -75,9 +69,7 @@ const AppContent = (): any => {
         className="upper-layer"
         style={{
           margin: '24px 16px',
-
           padding: 24,
-
           borderRadius: '10px'
         }}
       >
@@ -97,25 +89,40 @@ const AppContent = (): any => {
           <br />
           <br />
 
-          <Button onClick={handleTranslate} style={{width:'120px',backgroundColor: '#FFF5B8', color: 'black' }}>Translate</Button>
+          <Button
+            onClick={handleTranslate}
+            style={{width: '120px', backgroundColor: '#FFF5B8', color: 'black'}}
+          >
+            Translate
+          </Button>
 
           <Space wrap>
-          <div style={{ marginLeft: '620px',marginRight: 0 }}>
+            <div style={{marginLeft: '620px', marginRight: 0}}>
+              <Tooltip title="search">
+                <Button
+                  type="primary"
+                  shape="rectangle"
+                  icon={<PaperClipOutlined />}
+                  style={{
+                    marginRight: 10,
+                    backgroundColor: '#FFF5B8',
+                    width: '70px',
+                    color: 'black'
+                  }}
+                />
 
-            <Tooltip title="search">
-              <Button
-
-                type="primary"
-                shape="rectangle"
-                icon={<PaperClipOutlined />}
-                style={{marginRight: 10,backgroundColor: '#FFF5B8',width:'70px',color: 'black'}}
-              />
-
-              <Button type="primary" shape="rectangle" icon={<AudioOutlined />} 
-                  style={{marginRight: 0,backgroundColor: '#FFF5B8',width:'70px',color: 'black'}}
-
-              />
-            </Tooltip>
+                <Button
+                  type="primary"
+                  shape="rectangle"
+                  icon={<AudioOutlined />}
+                  style={{
+                    marginRight: 0,
+                    backgroundColor: '#FFF5B8',
+                    width: '70px',
+                    color: 'black'
+                  }}
+                />
+              </Tooltip>
             </div>
 
             <Switch
