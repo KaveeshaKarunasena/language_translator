@@ -7,6 +7,10 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const Schema = mongoose_1.default.Schema;
 const ObjectId = mongoose_1.default.Types.ObjectId;
 const History = new Schema({
+    user_id: {
+        type: ObjectId,
+        require: true
+    },
     title: {
         type: String,
         require: true,

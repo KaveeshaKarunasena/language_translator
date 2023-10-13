@@ -5,6 +5,10 @@ const ObjectId = mongoose.Types.ObjectId;
 
 const History = new Schema(
   {
+    user_id:{
+      type : ObjectId,
+      require: true
+    },
     title: {
       type: String,
       require: true,

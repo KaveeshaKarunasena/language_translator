@@ -13,9 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const History_1 = __importDefault(require("../model/History"));
-const addHistory = (title, description) => __awaiter(void 0, void 0, void 0, function* () {
+const addHistory = (user_id, title, description) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('in here');
     const newHistory = new History_1.default({
+        user_id: user_id,
         title: title,
         description: description,
     });
