@@ -9,7 +9,7 @@ width = 5 #
 
 print (textwrap.wrap(text,width))
 
-example_words = ["apita","heta","eakak","thiyenwa","exam"]
+example_words = ["mama","gedara","yanwa","bus","eke"]
 
 
 
@@ -21,18 +21,21 @@ suffixes = test_db.suffixes
 base_form=[]
 
 def suffixes_exact_matching(word):
+    print(word)
     result = suffixes.aggregate([
         {
             "$search":{
                 "index":"suffixes_index",
                 "text":{
                     "query":word,
-                    "path":"singlish_suffix",
+                    "path":"singlish_word",
                 }
             }
         }
     ])
-    result["english_suffix"]
+    word_list = list(result)
+    return word_list[0]['english_word']
+
 
 
 def fuzzy_english_matching(word):
@@ -47,25 +50,31 @@ def fuzzy_english_matching(word):
             }
         }
     ])
-    result["english_word"]
+    word_list = list(result)
+    return word_list[0]['english_word']
 
 
-def fuzzy_score(word_list):
+def fuzzy_score(word,word_list):
     singlish_score = 0
-    the_word = ''
+    base_word = ''
     for item in word_list:
         item_word =item['singlish_word']
         if fuzz.ratio(word, item_word ) > singlish_score:
             singlish_score =fuzz.ratio(word, item_word )
-            the_word = item_word
+            base_word = item_word
     print("singlish score",singlish_score)
-    englis_word = fuzzy_english_matching(the_word) 
+    word_size = len(base_word)
+    if word_size < len(word):
+        splited_words = textwrap.wrap(word,word_size)
+        print(splited_words)
+        suffix_english = suffixes_exact_matching(splited_words[1])
+        base_form.append(suffix_english)
+    englis_word = fuzzy_english_matching(base_word) 
     print("english word",englis_word)
     base_form.append(englis_word)       
-    word_size = len(item_word)
-    splited_words = textwrap.wrap(the_word,word_size)
-    suffix_english = suffixes_exact_matching(splited_words[1])
-    base_form.append(suffix_english)
+    
+    
+    
 
 
 
@@ -77,19 +86,22 @@ def fuzzy_singlish_matching(word):
                 "text":{
                     "query":word,
                     "path":"singlish_word",
-                    "fuzzy":{ "maxEdits": 1}
+                    "fuzzy":{ "maxEdits": 2}
                 }
             }
         }
     ])
     word_list = list(result)
-    fuzzy_score(word_list)
+    fuzzy_score(word,word_list)
 
 
 
 
 for word in example_words:
     fuzzy_singlish_matching(word)
+
+
+print(base_form)
 
 
 
