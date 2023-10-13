@@ -45,11 +45,12 @@ const TranslationPage = (): JSX.Element => {
 
   return (
     <div>
-      <Layout>
+      <Layout >
         <AppSider user = {user} />
         <Layout
           style={{
-            backgroundImage: `url('${image}')`,
+            backgroundColor:'#B6FFFA',
+            // backgroundImage: `url('${image}')`,
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover'
           }}
