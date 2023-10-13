@@ -20,7 +20,7 @@ const StyledPaper = styled(Paper)(({theme}) => ({
   maxWidth: 400,
   color: 'black',
   '&:hover': {
-    backgroundColor: '#C0EEE4'
+    backgroundColor: '#4B8673  '
   }
 }))
 
