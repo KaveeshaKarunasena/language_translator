@@ -1,69 +1,53 @@
-// import React from 'react'
-// import { Dialog, DialogTitle, DialogContent, DialogActions, Typography,  IconButton } from '@material-ui/core'
-// import Controls from "../controls/controls"
-// import NotListedLocationIcon from '@material-ui/icons/NotListedLocation';
-// import { makeStyles } from '@material-ui/styles'
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Slide from '@mui/material/Slide';
+import { TransitionProps } from '@mui/material/transitions';
 
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement<any, any>;
+  },
+  ref: React.Ref<unknown>,
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
+export default function AlertDialogSlide({confirmDialog, setConfirmDialog}) {
+  const [open, setOpen] = React.useState(false);
 
-// const useStyles = makeStyles(theme => ({
-//     dialog: {
-//         padding: theme.spacing(2),
-//         position: 'absolute',
-//         top: theme.spacing(5)
-//     },
-//     dialogTitle: {
-//         textAlign: 'center'
-//     },
-//     dialogContent: {
-//         textAlign: 'center'
-//     },
-//     dialogAction: {
-//         justifyContent: 'center'
-//     },
-//     titleIcon: {
-//         backgroundColor: theme.palette.secondary.light,
-//         color: theme.palette.secondary.main,
-//         '&:hover': {
-//             backgroundColor: theme.palette.secondary.light,
-//             cursor: 'default'
-//         },
-//         '& .MuiSvgIcon-root': {
-//             fontSize: '8rem',
-//         }
-//     }
-// }))
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-// export default function ConfirmDialog(props) {
+  const handleClose = () => {
+    setConfirmDialog()
+  };
 
-//     const { confirmDialog, setConfirmDialog } = props;
-//     const classes = useStyles()
-
-//     return (
-//         <Dialog open={confirmDialog.isOpen} classes={{ paper: classes.dialog }}>
-//             <DialogTitle className={classes.dialogTitle}>
-//                 <IconButton disableRipple className={classes.titleIcon}>
-//                     <NotListedLocationIcon />
-//                 </IconButton>
-//             </DialogTitle>
-//             <DialogContent className={classes.dialogContent}>
-//                 <Typography variant="h6">
-//                     {confirmDialog.title}
-//                 </Typography>
-//                 <Typography variant="subtitle2">
-//                     {confirmDialog.subTitle}
-//                 </Typography>
-//             </DialogContent>
-//             <DialogActions className={classes.dialogAction}>
-//                 <Controls.Button
-//                     text="No"
-//                     color="default"
-//                     onClick={() => setConfirmDialog({ ...confirmDialog, isOpen: false })} />
-//                 <Controls.Button
-//                     text="Yes"
-//                     color="secondary"
-//                     onClick={confirmDialog.onConfirm} />
-//             </DialogActions>
-//         </Dialog>
-//     )
-// }
+  return (
+    <div>
+      <Dialog
+        open={confirmDialog.isOpen}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle> {confirmDialog.title}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+          {confirmDialog.subTitle}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button variant="contained" color="error" onClick={() => setConfirmDialog({ ...confirmDialog, isOpen: false })} >No</Button>
+          <Button variant="contained"onClick={confirmDialog.onConfirm}>Yes</Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+}

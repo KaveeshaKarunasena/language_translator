@@ -42,14 +42,14 @@ const TranslationPage = (): JSX.Element => {
       };
       fetchDetails();
     }, []);
-
+    // AAE3E2
   return (
     <div>
       <Layout >
         <AppSider user = {user} />
         <Layout
           style={{
-            backgroundColor:'#B6FFFA',
+            backgroundColor:'#6CC4A1',
             // backgroundImage: `url('${image}')`,
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover'

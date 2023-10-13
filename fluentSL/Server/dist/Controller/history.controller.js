@@ -17,8 +17,8 @@ const history_service_1 = __importDefault(require("../service/history.service"))
 const createUserHistory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         console.log(req.body);
-        const { title, description } = req.body;
-        const newHistory = yield history_service_1.default.addHistory(title, description);
+        const { title, description, user_id } = req.body;
+        const newHistory = yield history_service_1.default.addHistory(user_id, title, description);
         res.status(200).send(newHistory);
     }
     catch (err) {
@@ -26,9 +26,9 @@ const createUserHistory = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 const getUserHistory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('here');
     try {
-        yield History_1.default.find().then((history) => res.status(200).send(history));
+        const { id } = req.params;
+        yield History_1.default.find({ user_id: id }).then((history) => res.status(200).send(history));
     }
     catch (err) {
         res.status(404).send({ err: 'There is no history found' });

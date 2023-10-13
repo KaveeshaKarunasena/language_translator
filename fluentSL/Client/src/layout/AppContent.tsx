@@ -1,15 +1,9 @@
 import {Button, Layout, Space, Switch, Tooltip} from 'antd'
-
 import '../App.css'
-
 import TextArea from 'antd/es/input/TextArea'
-
 import {PaperClipOutlined, AudioOutlined} from '@ant-design/icons'
-
 import Convert from '../components/convertor'
-
 import axios from 'axios'
-
 import {useState} from 'react'
 
 const {Content} = Layout
@@ -75,9 +69,7 @@ const AppContent = (): any => {
         className="upper-layer"
         style={{
           margin: '24px 16px',
-
           padding: 24,
-
           borderRadius: '10px'
         }}
       >
@@ -93,38 +85,59 @@ const AppContent = (): any => {
 
           <br />
 
-          <TextArea showCount style={{height: 120}} placeholder={value} />
+          <TextArea showCount style={{height: 120}} placeholder="" value= {value} />
           <br />
           <br />
+          <div style={{display: 'flex', flexDirection: 'row'}}>
+            <Button
+              onClick={handleTranslate}
+              style={{
+                width: '120px',
+                backgroundColor: '#14C38E',
+                color: 'black'
+              }}
+            >
+              Translate
+            </Button>
+              <div style={{display: 'flex', justifyContent: 'flex-end', marginLeft:'auto'}}>
+            <Space wrap >
+              <div>
+                <Tooltip title="search">
+                  <Button
+                    type="primary"
+                    shape="rectangle"
+                    icon={<PaperClipOutlined />}
+                    style={{
+                      marginRight: 10,
+                      backgroundColor: '#14C38E',
+                      width: '70px',
+                      color: 'black'
+                    }}
+                  />
 
-          <Button onClick={handleTranslate} style={{width:'120px',backgroundColor: '#FFF5B8', color: 'black' }}>Translate</Button>
+                  <Button
+                    type="primary"
+                    shape="rectangle"
+                    icon={<AudioOutlined />}
+                    style={{
+                      marginRight: 0,
+                      backgroundColor: '#14C38E',
+                      width: '70px',
+                      color: 'black'
+                    }}
+                  />
+                </Tooltip>
+              </div>
 
-          <Space wrap>
-          <div style={{ marginLeft: '620px',marginRight: 0 }}>
-
-            <Tooltip title="search">
-              <Button
-
-                type="primary"
-                shape="rectangle"
-                icon={<PaperClipOutlined />}
-                style={{marginRight: 10,backgroundColor: '#FFF5B8',width:'70px',color: 'black'}}
-              />
-
-              <Button type="primary" shape="rectangle" icon={<AudioOutlined />} 
-                  style={{marginRight: 0,backgroundColor: '#FFF5B8',width:'70px',color: 'black'}}
-
-              />
-            </Tooltip>
-            </div>
-
-            <Switch
+              {/* <Switch
               checkedChildren="Spoken"
               unCheckedChildren="Written"
               defaultChecked
               style={{marginLeft: '1735%'}}
-            />
-          </Space>
+            /> */}
+            </Space>
+            </div>
+          </div>
         </div>
       </Content>
     </>
