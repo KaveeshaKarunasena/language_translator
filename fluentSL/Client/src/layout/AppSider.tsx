@@ -8,7 +8,7 @@ const {Sider} = Layout
 const AppSider = ({user}): JSX.Element => {
   console.log(user)
   return (
-    <Sider width={300}>
+    <Sider width={300} style={{backgroundColor:'#C0EEE4'}}>
       <Index />
       <div>
         <Avatar user = {user} />

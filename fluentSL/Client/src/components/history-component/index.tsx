@@ -18,9 +18,9 @@ const StyledPaper = styled(Paper)(({theme}) => ({
   ...theme.typography.body2,
   padding: theme.spacing(2),
   maxWidth: 400,
-  color: 'white',
+  color: 'black',
   '&:hover': {
-    backgroundColor: '#102C57'
+    backgroundColor: '#C0EEE4'
   }
 }))
 
