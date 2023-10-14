@@ -8,18 +8,18 @@ import image from './image/5.png';
 import { Route, Routes } from 'react-router-dom';
 import SignIn from './userComponent/SignIn';
 import SignUp from './userComponent/SignUp';
-import { AuthGuard, UserGuard } from './auth/AuthGuard';
+import { GuestGuard, UserGuard } from './auth/AuthGuard';
 import TranslationPage from './pages/translationPage';
 
 const App = (): JSX.Element => {
   return (
     <div>
-      <AuthGuard>
+      <GuestGuard>
         <Routes>
           <Route path="/" element={<SignUp />} />
           <Route path="/login" element={<SignIn />} />
         </Routes>
-      </AuthGuard>
+      </GuestGuard>
       <UserGuard>
       <Routes>
         <Route path="/user/translate" element={<TranslationPage />} />
