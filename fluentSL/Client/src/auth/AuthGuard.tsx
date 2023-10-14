@@ -22,3 +22,25 @@ export const AuthGuard = ({ children }) => {
     console.log(error);
   }
 };
+
+
+export const UserGuard = ({ children }) => {
+let authPayload = React.useContext(AuthContext);
+const { fromStorage } = authPayload;
+const data = JSON.parse(fromStorage);
+
+// const [token,setToken] = useState([]);
+const navigate = useNavigate();
+
+try {
+  console.log('auths', data);
+  // setToken(authPayload.token)
+  if (!data || !data.token) {
+    return <Navigate to="/login" />;
+  }
+ 
+  return <>{children}</>;
+} catch (error) {
+  console.log(error);
+}
+};

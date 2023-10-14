@@ -8,7 +8,7 @@ import image from './image/5.png';
 import { Route, Routes } from 'react-router-dom';
 import SignIn from './userComponent/SignIn';
 import SignUp from './userComponent/SignUp';
-import { AuthGuard } from './auth/AuthGuard';
+import { AuthGuard, UserGuard } from './auth/AuthGuard';
 import TranslationPage from './pages/translationPage';
 
 const App = (): JSX.Element => {
@@ -20,9 +20,11 @@ const App = (): JSX.Element => {
           <Route path="/login" element={<SignIn />} />
         </Routes>
       </AuthGuard>
+      <UserGuard>
       <Routes>
         <Route path="/user/translate" element={<TranslationPage />} />
       </Routes>
+      </UserGuard>
     </div>
   );
 };

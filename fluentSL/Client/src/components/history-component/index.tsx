@@ -72,7 +72,7 @@ const Index = () => {
       }
     };
     fetchDetails();
-  }, []);
+  }, [history]);
 
   const deleteDetails = async (id: any) => {
     setConfirmDialog({
