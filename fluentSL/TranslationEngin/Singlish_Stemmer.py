@@ -55,6 +55,8 @@ def fuzzy_english_matching(word):
 
 
 def fuzzy_score(word,word_list):
+    if(len(word_list) == 0):
+        print("no words found in Data base")
     singlish_score = 0
     base_word = ''
     for item in word_list:
@@ -63,7 +65,7 @@ def fuzzy_score(word,word_list):
             singlish_score =fuzz.ratio(word, item_word )
             base_word = item_word
     print("singlish score",singlish_score)
-    word_size = len(base_word)
+    word_size = len(base_word) 
     if word_size < len(word):
         splited_words = textwrap.wrap(word,word_size)
         print(splited_words)
