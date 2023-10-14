@@ -1,10 +1,18 @@
-import os
 import nltk
+import re
+
 nltk.download('punkt')
-from nltk.tokenize import word_tokenize
 
-str = "Apita het school ek exame ekk thiyenwa"
+text = ""
 
-AI_token = word_tokenize(str)
-print(AI_token)
+sentence_pattern = r'[.?!]'
 
+sentences = re.split(sentence_pattern, text)
+
+sentences_tokens = []
+
+for sentence in sentences:
+    words = [word for word in nltk.word_tokenize(sentence) if word.isalnum()]
+    sentences_tokens.append(words)
+
+print(sentences_tokens)
