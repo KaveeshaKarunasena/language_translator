@@ -9,12 +9,15 @@ import React from 'react';
 import { AuthContext } from '../auth/AuthProvider';
 import jwt_decode from 'jwt-decode';
 import logo from '../image/logo-white-removebg-preview.png';
+import CachedIcon from '@mui/icons-material/Cached'; 
 
 const { Content } = Layout;
 
 const AppContent = (): any => {
   const [text, setText] = useState('');
   const [value, setValue] = useState('');
+  const [fromLanguage, setFromLanguage] = useState('');
+  const [toLanguage, setToLanguage] = useState('');
 
   let authPayload = React.useContext(AuthContext);
   const { fromStorage } = authPayload;
@@ -25,6 +28,40 @@ const AppContent = (): any => {
 
   const decoded = jwt_decode(token);
   const decodedId = decoded.id;
+
+  const [isVoiceTranslating, setIsVoiceTranslating] = useState(false);
+  const [voiceMessage, setVoiceMessage] = useState('');
+
+  
+  async function handleVoiceTranslate(): Promise<void> {
+    try {
+      if (voiceMessage) {
+        const translationOptions = {
+          method: 'POST',
+          url: 'https://translation.googleapis.com/language/translate/v2',
+        headers: {
+          'content-type': 'application/json',
+          },
+          data: {
+            key:'AIzaSyCq33nFEkUyeTMoFR0yO4VPF3o9Y88LyrY',
+            from: 'en',
+            to: 'si',
+            q: [voiceMessage],
+          },
+        };
+  
+        const response = await axios.request(translationOptions);
+  
+        setValue(response.data);
+  
+        console.log(response.data);
+      } else {
+        console.log('No recognized voice message to translate.');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   async function handleTranslate(): Promise<void> {
     const options = {
@@ -80,8 +117,43 @@ const AppContent = (): any => {
         }}
       >
         {' '}
-        <img src={logo} alt="Logo" width="120" height="120" />
-        <div style={{ marginTop: '7%' }}>
+        <img src={logo} alt="Logo" width="100" height="100" />
+        <div style={{ marginTop: '5%' }}>
+        <div>
+                <select style={{
+                    width: '20%',
+                    padding: '10px',
+                    borderRadius: '5px',
+                    border: '1px solid #ccc',
+                    fontSize: '14px',
+                    
+                  }}
+                  onChange={(e) => setFromLanguage(e.target.value)}
+
+                >
+                  <option value="sinhala">Sinhala</option>
+                  <option value="English">English</option>
+                  <option value="Singlish">Singlish</option>
+                </select>
+                
+                <CachedIcon style={{fontSize: 20, color: 'black' }} /> {/* Add the Cached icon here */}
+                <select style={{
+                    width: '20%',
+                    padding: '10px',
+                    borderRadius: '5px',
+                    border: '1px solid #ccc',
+                    fontSize: '14px',
+                  }}
+                  onChange={(e) => setToLanguage(e.target.value)}
+
+                >
+                  <option value="sinhala">Sinhala</option>
+                  <option value="English">English</option>
+                  <option value="Singlish">Singlish</option>
+                </select>
+            </div>
+          <br></br>
+         
           <TextArea
             showCount
             style={{ height: 120 }}
@@ -118,7 +190,7 @@ const AppContent = (): any => {
             >
               <Space wrap>
                 <div>
-                  <Tooltip title="search">
+                  <Tooltip title="Attach">
                     <Button
                       type="primary"
                       shape="rectangle"
@@ -130,9 +202,12 @@ const AppContent = (): any => {
                         color: 'black',
                       }}
                     />
+                    </Tooltip>
+                <Tooltip title="Voice">
 
                     <Button
-                      type="primary"
+                      onClick={handleVoiceTranslate}
+                       type="primary"
                       shape="rectangle"
                       icon={<AudioOutlined />}
                       style={{
