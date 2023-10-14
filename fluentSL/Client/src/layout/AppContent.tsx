@@ -64,6 +64,8 @@ const AppContent = (): any => {
   }
 
   async function handleTranslate(): Promise<void> {
+    console.log(fromLanguage)
+    console.log(toLanguage)
     const options = {
       method: 'POST',
 
@@ -76,8 +78,8 @@ const AppContent = (): any => {
       },
 
       data: {
-        from: 'en',
-        to: 'si',
+        from: fromLanguage,
+        to: toLanguage,
         q: [`${text}`],
       },
     };
@@ -131,8 +133,8 @@ const AppContent = (): any => {
                   onChange={(e) => setFromLanguage(e.target.value)}
 
                 >
-                  <option value="sinhala">Sinhala</option>
-                  <option value="English">English</option>
+                  <option value="si">Sinhala</option>
+                  <option value="en">English</option>
                   <option value="Singlish">Singlish</option>
                 </select>
                 
@@ -147,8 +149,8 @@ const AppContent = (): any => {
                   onChange={(e) => setToLanguage(e.target.value)}
 
                 >
-                  <option value="sinhala">Sinhala</option>
-                  <option value="English">English</option>
+                  <option value="si">Sinhala</option>
+                  <option value="en">English</option>
                   <option value="Singlish">Singlish</option>
                 </select>
             </div>

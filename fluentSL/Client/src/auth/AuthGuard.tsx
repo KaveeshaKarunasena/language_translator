@@ -3,7 +3,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import React from 'react';
 
-export const AuthGuard = ({ children }) => {
+export const GuestGuard = ({ children }) => {
   let authPayload = React.useContext(AuthContext);
   const { fromStorage } = authPayload;
   const data = JSON.parse(fromStorage);
@@ -33,10 +33,10 @@ const data = JSON.parse(fromStorage);
 const navigate = useNavigate();
 
 try {
-  console.log('auths', data);
+  console.log('user', data);
   // setToken(authPayload.token)
   if (!data || !data.token) {
-    return <Navigate to="/login" />;
+    <Navigate to="/login" />;
   }
  
   return <>{children}</>;

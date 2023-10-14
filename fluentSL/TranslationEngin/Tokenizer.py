@@ -8,7 +8,7 @@ nltk.download('maxent_ne_chunker')
 nltk.download('words')
 nltk.download('averaged_perceptron_tagger')
 
-text = "ada harima amaru dawasak i wont come tomorrow Namal"
+text = "heta mata enna i wont come tomorrow Namal"
 
 english_words = set(words.words())
 
