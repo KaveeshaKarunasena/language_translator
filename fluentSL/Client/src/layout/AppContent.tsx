@@ -77,7 +77,22 @@ const AppContent = (): any => {
         )
 
         .then((response) => {
-          console.log(response);
+          console.log(response.data);
+          setValue(response.data.text);
+          axios
+            .post(
+              'http://localhost:3000/userhistory/create',
+              {
+                user_id: decodedId,
+                title: text,
+                description: value,
+              },
+              { headers },
+            )
+
+            .then((response) => {
+              console.log(response);
+            });
         });
     } else {
       const options = {
@@ -102,26 +117,24 @@ const AppContent = (): any => {
       try {
         const response = await axios.request(options);
         setValue(response.data);
-        console.log(response.data);
+        axios
+          .post(
+            'http://localhost:3000/userhistory/create',
+            {
+              user_id: decodedId,
+              title: text,
+              description: value,
+            },
+            { headers },
+          )
+
+          .then((response) => {
+            console.log(response);
+          });
       } catch (error) {
         console.error(error);
       }
     }
-
-    axios
-      .post(
-        'http://localhost:3000/userhistory/create',
-        {
-          user_id: decodedId,
-          title: text,
-          description: value,
-        },
-        { headers },
-      )
-
-      .then((response) => {
-        console.log(response);
-      });
   }
 
   return (

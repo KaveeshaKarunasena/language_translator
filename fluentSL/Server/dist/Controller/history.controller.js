@@ -26,6 +26,7 @@ const createUserHistory = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 const getUserHistory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('here');
     try {
         const { id } = req.params;
         yield History_1.default.find({ user_id: id }).then((history) => res.status(200).send(history));

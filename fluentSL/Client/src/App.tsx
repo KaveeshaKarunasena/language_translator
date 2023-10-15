@@ -21,9 +21,9 @@ const App = (): JSX.Element => {
         </Routes>
       </GuestGuard>
       <UserGuard>
-      <Routes>
-        <Route path="/user/translate" element={<TranslationPage />} />
-      </Routes>
+        <Routes>
+          <Route path="/user/translate" element={<TranslationPage />} />
+        </Routes>
       </UserGuard>
     </div>
   );

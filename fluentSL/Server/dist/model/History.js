@@ -9,7 +9,7 @@ const ObjectId = mongoose_1.default.Types.ObjectId;
 const History = new Schema({
     user_id: {
         type: ObjectId,
-        require: true
+        require: true,
     },
     title: {
         type: String,

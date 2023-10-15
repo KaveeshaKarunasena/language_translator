@@ -1,14 +1,10 @@
 import nltk
 from nltk.corpus import words
 import re
+import main
 
-nltk.download('punkt')
-nltk.download('words')
-nltk.download('maxent_ne_chunker')
-nltk.download('words')
-nltk.download('averaged_perceptron_tagger')
 
-text = "heta mata enna i wont come tomorrow Namal"
+text = main.sentence
 
 english_words = set(words.words())
 
@@ -38,6 +34,3 @@ for sentence in sentences:
 sentences_tokens_eng = [word for word in sentences_tokens_eng if word not in names]
 sentences_tokens_sin = [word for word in sentences_tokens_sin if word not in names]
 
-print("English words in the text (excluding names):", sentences_tokens_eng)
-print("Sinhala words in the text (excluding names):", sentences_tokens_sin)
-print("Names in the text:", names)

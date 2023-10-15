@@ -9,12 +9,36 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const child_process_1 = require("child_process");
 const translateSentence = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log(req.body);
-        const { spawn } = require('child_process');
-        const pyResponse = spawn('python', ['Singlish_Stemmer.py', 'listToStr']);
-        console.log(pyResponse);
+        const { title } = req.body;
+        const pyResponse2 = (0, child_process_1.spawn)('python', [
+            '../TranslationEngin/Singlish_Stemmer.py',
+            title,
+        ]);
+        pyResponse2.stdout.on('data', (data) => __awaiter(void 0, void 0, void 0, function* () {
+            const options = {
+                method: 'POST',
+                headers: {
+                    accept: 'application/json',
+                    'content-type': 'application/json',
+                    Authorization: 'Bearer YDTt3RIuDl6iHKQwgVcK9Cqt9hBScZiN',
+                },
+                body: JSON.stringify({ style: 'general', text: `${data}` }),
+            };
+            try {
+                const response = yield fetch('https://api.ai21.com/studio/v1/paraphrase', options);
+                const data = yield response.json();
+                res.json(data.suggestions[0]);
+            }
+            catch (error) {
+                res.status(500).json({ error: 'An error occurred' });
+            }
+        }));
+        pyResponse2.stderr.on('data', (data) => {
+            console.log(`error : ${data}`);
+        });
     }
     catch (err) {
         res.status(400).send({ err: 'not created' });

@@ -1,16 +1,22 @@
 import sys
-from numpy.linalg import norm
+from dotenv import load_dotenv,find_dotenv
 from fuzzywuzzy import fuzz
-from main import db_connection
+import os
+from pymongo import MongoClient
 import textwrap
 import Tokenizer
 
+load_dotenv(find_dotenv())
+
 base_form=[]
 
-db = db_connection()
-test_db = db.test
+connection_string = os.environ.get("DB_URI")
+client = MongoClient(connection_string)
+test_db = client.test
 dictionary = test_db.dictionary
 suffixes = test_db.suffixes
+
+
 
 example_words = Tokenizer.sentences_tokens_sin
 

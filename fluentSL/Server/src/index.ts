@@ -25,7 +25,7 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use('/translate', translateSentenceRoute);
 app.use('/paraphrase', paraphraseRoute);
-app.use('/account', accountRoute);
+app.use('/userhistory', historyRoute);
 app.use('/account', accountRoute);
 
 mongoose.connect(process.env.MONGO_URL).then(() => {
