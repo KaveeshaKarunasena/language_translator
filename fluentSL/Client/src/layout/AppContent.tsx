@@ -9,7 +9,7 @@ import React from 'react';
 import { AuthContext } from '../auth/AuthProvider';
 import jwt_decode from 'jwt-decode';
 import logo from '../image/logo-white-removebg-preview.png';
-import CachedIcon from '@mui/icons-material/Cached'; 
+import CachedIcon from '@mui/icons-material/Cached';
 
 const { Content } = Layout;
 
@@ -32,28 +32,27 @@ const AppContent = (): any => {
   const [isVoiceTranslating, setIsVoiceTranslating] = useState(false);
   const [voiceMessage, setVoiceMessage] = useState('');
 
-  
   async function handleVoiceTranslate(): Promise<void> {
     try {
       if (voiceMessage) {
         const translationOptions = {
           method: 'POST',
           url: 'https://translation.googleapis.com/language/translate/v2',
-        headers: {
-          'content-type': 'application/json',
+          headers: {
+            'content-type': 'application/json',
           },
           data: {
-            key:'AIzaSyCq33nFEkUyeTMoFR0yO4VPF3o9Y88LyrY',
+            key: 'AIzaSyCq33nFEkUyeTMoFR0yO4VPF3o9Y88LyrY',
             from: 'en',
             to: 'si',
             q: [voiceMessage],
           },
         };
-  
+
         const response = await axios.request(translationOptions);
-  
+
         setValue(response.data);
-  
+
         console.log(response.data);
       } else {
         console.log('No recognized voice message to translate.');
@@ -64,32 +63,49 @@ const AppContent = (): any => {
   }
 
   async function handleTranslate(): Promise<void> {
-    console.log(fromLanguage)
-    console.log(toLanguage)
-    const options = {
-      method: 'POST',
+    console.log(fromLanguage);
+    console.log(toLanguage);
+    if (fromLanguage === 'Singlish') {
+      console.log('sda', text);
+      axios
+        .post(
+          'http://localhost:3000/translate/translate',
+          {
+            title: text,
+          },
+          { headers },
+        )
 
-      url: 'https://rapid-translate-multi-traduction.p.rapidapi.com/t',
+        .then((response) => {
+          console.log(response);
+        });
+    } else {
+      const options = {
+        method: 'POST',
 
-      headers: {
-        'content-type': 'application/json',
-        'X-RapidAPI-Key': '844dee9b82msh71b565e662a4fadp10eb89jsn2efb46c0e5a5',
-        'X-RapidAPI-Host': 'rapid-translate-multi-traduction.p.rapidapi.com',
-      },
+        url: 'https://rapid-translate-multi-traduction.p.rapidapi.com/t',
 
-      data: {
-        from: fromLanguage,
-        to: toLanguage,
-        q: [`${text}`],
-      },
-    };
+        headers: {
+          'content-type': 'application/json',
+          'X-RapidAPI-Key':
+            '844dee9b82msh71b565e662a4fadp10eb89jsn2efb46c0e5a5',
+          'X-RapidAPI-Host': 'rapid-translate-multi-traduction.p.rapidapi.com',
+        },
 
-    try {
-      const response = await axios.request(options);
-      setValue(response.data);
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
+        data: {
+          from: fromLanguage,
+          to: toLanguage,
+          q: [`${text}`],
+        },
+      };
+
+      try {
+        const response = await axios.request(options);
+        setValue(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
     }
 
     axios
@@ -121,41 +137,40 @@ const AppContent = (): any => {
         {' '}
         <img src={logo} alt="Logo" width="100" height="100" />
         <div style={{ marginTop: '5%' }}>
-        <div>
-                <select style={{
-                    width: '20%',
-                    padding: '10px',
-                    borderRadius: '5px',
-                    border: '1px solid #ccc',
-                    fontSize: '14px',
-                    
-                  }}
-                  onChange={(e) => setFromLanguage(e.target.value)}
-
-                >
-                  <option value="si">Sinhala</option>
-                  <option value="en">English</option>
-                  <option value="Singlish">Singlish</option>
-                </select>
-                
-                <CachedIcon style={{fontSize: 20, color: 'black' }} /> {/* Add the Cached icon here */}
-                <select style={{
-                    width: '20%',
-                    padding: '10px',
-                    borderRadius: '5px',
-                    border: '1px solid #ccc',
-                    fontSize: '14px',
-                  }}
-                  onChange={(e) => setToLanguage(e.target.value)}
-
-                >
-                  <option value="si">Sinhala</option>
-                  <option value="en">English</option>
-                  <option value="Singlish">Singlish</option>
-                </select>
-            </div>
+          <div>
+            <select
+              style={{
+                width: '20%',
+                padding: '10px',
+                borderRadius: '5px',
+                border: '1px solid #ccc',
+                fontSize: '14px',
+              }}
+              onChange={(e) => setFromLanguage(e.target.value)}
+            >
+              <option value="si">Sinhala</option>
+              <option value="en">English</option>
+              <option value="Singlish">Singlish</option>
+            </select>
+            <CachedIcon style={{ fontSize: 20, color: 'black' }} />{' '}
+            {/* Add the Cached icon here */}
+            <select
+              style={{
+                width: '20%',
+                padding: '10px',
+                borderRadius: '5px',
+                border: '1px solid #ccc',
+                fontSize: '14px',
+              }}
+              onChange={(e) => setToLanguage(e.target.value)}
+            >
+              <option value="si">Sinhala</option>
+              <option value="en">English</option>
+              <option value="Singlish">Singlish</option>
+            </select>
+          </div>
           <br></br>
-         
+
           <TextArea
             showCount
             style={{ height: 120 }}
@@ -204,12 +219,11 @@ const AppContent = (): any => {
                         color: 'black',
                       }}
                     />
-                    </Tooltip>
-                <Tooltip title="Voice">
-
+                  </Tooltip>
+                  <Tooltip title="Voice">
                     <Button
                       onClick={handleVoiceTranslate}
-                       type="primary"
+                      type="primary"
                       shape="rectangle"
                       icon={<AudioOutlined />}
                       style={{

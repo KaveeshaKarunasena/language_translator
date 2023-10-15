@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import { historyRoute } from './routes/history.route';
 import { accountRoute } from './routes/account.route';
 import { paraphraseRoute } from './routes/grammerChecker.route';
+import { translateSentenceRoute } from './routes/translate.route';
 
 require('dotenv').config();
 
@@ -22,6 +23,7 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Hello, TypeScript Express!');
 });
 
+app.use('/translate', translateSentenceRoute);
 app.use('/paraphrase', paraphraseRoute);
 app.use('/account', accountRoute);
 app.use('/account', accountRoute);
