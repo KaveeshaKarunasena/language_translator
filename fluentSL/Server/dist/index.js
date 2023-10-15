@@ -7,8 +7,9 @@ const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
 const mongoose_1 = __importDefault(require("mongoose"));
-const history_route_1 = require("./routes/history.route");
 const account_route_1 = require("./routes/account.route");
+const grammerChecker_route_1 = require("./routes/grammerChecker.route");
+const translate_route_1 = require("./routes/translate.route");
 require('dotenv').config();
 const app = (0, express_1.default)();
 const port = process.env.PORT;
@@ -20,7 +21,9 @@ app.use(body_parser_1.default.urlencoded({
 app.get('/', (req, res) => {
     res.send('Hello, TypeScript Express!');
 });
-app.use('/userhistory', history_route_1.historyRoute);
+app.use('/translate', translate_route_1.translateSentenceRoute);
+app.use('/paraphrase', grammerChecker_route_1.paraphraseRoute);
+app.use('/account', account_route_1.accountRoute);
 app.use('/account', account_route_1.accountRoute);
 mongoose_1.default.connect(process.env.MONGO_URL).then(() => {
     console.log('MongoDB connected');
