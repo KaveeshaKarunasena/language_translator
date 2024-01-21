@@ -30,6 +30,7 @@ const translateSentence = (req, res) => __awaiter(void 0, void 0, void 0, functi
             try {
                 const response = yield fetch('https://api.ai21.com/studio/v1/paraphrase', options);
                 const data = yield response.json();
+                console.log(data.suggestions);
                 res.json(data.suggestions[0]);
             }
             catch (error) {

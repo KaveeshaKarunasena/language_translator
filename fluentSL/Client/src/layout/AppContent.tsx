@@ -114,6 +114,28 @@ const AppContent = (): any => {
         },
       };
 
+     
+    }
+     try {
+        const response = await axios.request(options);
+        setValue(response.data);
+        axios
+          .post(
+            'http://localhost:3000/userhistory/create',
+            {
+              user_id: decodedId,
+              title: text,
+              description: value,
+            },
+            { headers },
+          )
+
+          .then((response) => {
+            console.log(response);
+          });
+      } catch (error) {
+        console.error(error);
+      }
       try {
         const response = await axios.request(options);
         setValue(response.data);
@@ -134,7 +156,6 @@ const AppContent = (): any => {
       } catch (error) {
         console.error(error);
       }
-    }
   }
 
   return (

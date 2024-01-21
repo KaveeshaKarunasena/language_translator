@@ -27,6 +27,7 @@ const translateSentence = async (req: Request, res: Response) => {
           options,
         );
         const data = await response.json();
+        console.log(data.suggestions)
         res.json(data.suggestions[0]);
       } catch (error) {
         res.status(500).json({ error: 'An error occurred' });
